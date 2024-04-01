@@ -39,15 +39,7 @@ export const navList: inNavList[] = [
     icon: <MdOutlineHome />,
     isOpen: true,
     children: [
-      {
-        path: "/",
-        label: "home",
-        element: <div>home page</div>,
-        errorElement: <ErrorPage />,
-        icon: <MdOutlineHome />,
-        id: 2,
-        isOpen: false
-      },
+     
       {
         path: "users",
         element: <UsersPage />,

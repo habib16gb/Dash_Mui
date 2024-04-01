@@ -7,16 +7,20 @@ import {
   ListItemText,
 } from "@mui/material";
 import { inNavList } from "../../main";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 interface Props {
   navList: inNavList[];
   open: boolean;
   parentPath?: string;
+  className?: string;
+  level?: number
 }
 
-const MuiTreeView = ({ navList, open, parentPath = "/" }: Props) => {
+
+
+const MuiTreeView = ({ navList, open, parentPath = "/", level = 0 }: Props) => {
   const [treeList, setTreeList] = useState(navList);
 
   const toggleNode = (tree: inNavList[], nodeId: number) => {
@@ -40,17 +44,20 @@ const MuiTreeView = ({ navList, open, parentPath = "/" }: Props) => {
   };
 
   return (
-    <List>
+    <List sx={{}} >
       {treeList.map(({ label, children, icon, path, id, isOpen }, index) => {
         return (
-          <Box key={index}>
-            <Link
+          <Box sx={{}} component={NavLink} key={index}>
+            <NavLink          
+            className={({isActive}) => `block capitalize  ${isActive && ' text-white bg-blue-500'} ` }
+            
               onClick={() => handleToggle(id)}
               to={
                 path === "/" || parentPath === "/"
                   ? path
                   : `${parentPath}/${path}`
               }
+              end
             >
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
@@ -59,6 +66,7 @@ const MuiTreeView = ({ navList, open, parentPath = "/" }: Props) => {
                     justifyContent: open ? "initial" : "center",
                     px: 2.5,
                     width: "100%",
+                    color: 'inherit'
                   }}
                 >
                   <ListItemIcon
@@ -66,9 +74,10 @@ const MuiTreeView = ({ navList, open, parentPath = "/" }: Props) => {
                       minWidth: 0,
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
+                      color: 'inherit'
                     }}
                   >
-                    <Box sx={{ fontSize: 30, cursor: "pointer" }}>{icon}</Box>
+                    <Box sx={{ fontSize: 30, cursor: "pointer", paddingLeft: open ? level * 2 : 0 }}>{icon}</Box>
                   </ListItemIcon>
                   <ListItemText
                     primary={label}
@@ -76,17 +85,16 @@ const MuiTreeView = ({ navList, open, parentPath = "/" }: Props) => {
                   />
                 </ListItemButton>
               </ListItem>
-            </Link>
+            </NavLink>
             {isOpen && (
-              <Box>
+              <Box >
                 {children && (
-                  <Box sx={{ paddingLeft: open ? 2 : 0 }}>
                     <MuiTreeView
+                      level={level + 1}
                       navList={children}
                       open={open}
                       parentPath={path}
                     />
-                  </Box>
                 )}
               </Box>
             )}
