@@ -25,41 +25,80 @@ export interface inNavList {
   errorElement?: React.ReactNode;
   icon: React.ReactNode;
   children?: inNavList[];
+  id: number;
+  isOpen: boolean;
 }
 
 export const navList: inNavList[] = [
   {
     path: "/",
+    id: 1,
     label: "home",
     element: <App />,
     errorElement: <ErrorPage />,
     icon: <MdOutlineHome />,
+    isOpen: true,
     children: [
       {
-        path: "/users",
+        path: "/",
+        label: "home",
+        element: <div>home page</div>,
+        errorElement: <ErrorPage />,
+        icon: <MdOutlineHome />,
+        id: 2,
+        isOpen: false
+      },
+      {
+        path: "users",
         element: <UsersPage />,
         icon: <HiOutlineUsers />,
         label: "users",
+        id: 3,
         children: [
           {
             path: "add",
             element: <AddUserPage />,
             label: "add user",
             icon: <AiOutlineUserAdd />,
+            id: 4,
+            isOpen: false
           },
           {
             path: "update",
             element: <UpdateUserPage />,
             label: "update user",
             icon: <TbUserEdit />,
+            id: 5,
+            isOpen: false
           },
         ],
+        isOpen: false
       },
       {
-        path: "/products",
+        path: "products",
         element: <ProductsPage />,
         label: "products",
         icon: <GiShoppingCart />,
+        id: 6,
+        children: [
+          {
+            path: "add",
+            element: <div>add products</div>,
+            label: "add products",
+            icon: <GiShoppingCart />,
+            id: 7,
+            isOpen: false
+          },
+        ],
+        isOpen: false
+      },
+      {
+        path: "dash",
+        label: "dash",
+        element: <div>dash</div>,
+        icon: <MdOutlineHome />,
+        id: 8,
+        isOpen: false
       },
     ],
   },
