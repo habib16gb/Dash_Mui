@@ -6,17 +6,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import { IconType } from "react-icons";
 import { MdOutlineHome } from "react-icons/md";
 import { GiShoppingCart } from "react-icons/gi";
-import { AiOutlineUserAdd } from "react-icons/ai";
-import { TbUserEdit } from "react-icons/tb";
+import { RiAddBoxLine } from "react-icons/ri";
 import { HiOutlineUsers } from "react-icons/hi2";
-
-import {
-  AddUserPage,
-  ErrorPage,
-  ProductsPage,
-  UpdateUserPage,
-  UsersPage,
-} from "./pages/index.ts";
+import { ErrorPage, ProductsPage, UsersPage } from "./pages/index.ts";
+import AddProductPage from "./pages/products/AddProductPage.tsx";
 
 export interface inNavList {
   path: string;
@@ -39,32 +32,13 @@ export const navList: inNavList[] = [
     icon: <MdOutlineHome />,
     isOpen: true,
     children: [
-     
       {
         path: "users",
         element: <UsersPage />,
         icon: <HiOutlineUsers />,
         label: "users",
         id: 3,
-        children: [
-          {
-            path: "add",
-            element: <AddUserPage />,
-            label: "add user",
-            icon: <AiOutlineUserAdd />,
-            id: 4,
-            isOpen: false
-          },
-          {
-            path: "update",
-            element: <UpdateUserPage />,
-            label: "update user",
-            icon: <TbUserEdit />,
-            id: 5,
-            isOpen: false
-          },
-        ],
-        isOpen: false
+        isOpen: false,
       },
       {
         path: "products",
@@ -75,14 +49,14 @@ export const navList: inNavList[] = [
         children: [
           {
             path: "add",
-            element: <div>add products</div>,
+            element: <AddProductPage />,
             label: "add products",
-            icon: <GiShoppingCart />,
+            icon: <RiAddBoxLine />,
             id: 7,
-            isOpen: false
+            isOpen: false,
           },
         ],
-        isOpen: false
+        isOpen: false,
       },
       {
         path: "dash",
@@ -90,7 +64,7 @@ export const navList: inNavList[] = [
         element: <div>dash</div>,
         icon: <MdOutlineHome />,
         id: 8,
-        isOpen: false
+        isOpen: false,
       },
     ],
   },
